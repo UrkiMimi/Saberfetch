@@ -4,8 +4,6 @@ A simple BSIPA plugin that displays system statistics and information for debugg
 ## Dependenceies
 BSIPA ^4.3.0 (may lower)
 
-## Display (and meanings)
-
 ## Plans/Todo
 - Make the Saberfetch window togglable
 - Add modular UI config (In userdata)
