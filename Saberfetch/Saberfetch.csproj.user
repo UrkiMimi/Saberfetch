@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <BeatSaberDir>
+      <!--Path to your Beat Saber folder (used for references)-->
+    </BeatSaberDir>
+    <ReferencePath>C:\Program Files (x86)\Steam\steamapps\common\Beat Saber\Beat Saber_Data\Managed;C:\Program Files (x86)\Steam\steamapps\common\Beat Saber\Libs;C:\Program Files (x86)\Steam\steamapps\common\Beat Saber\Plugins</ReferencePath>
+    <!-- Path to your Beat Saber install, only set if different from BeatSaberDir. -->
+    <!--<GameDirectory></GameDirectory>-->
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+</Project>
