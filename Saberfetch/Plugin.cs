@@ -1,6 +1,7 @@
 ﻿using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
+using Saberfetch.Configuration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Saberfetch
     {
         internal static Plugin Instance { get; private set; }
         internal static IPALogger Log { get; private set; }
+        internal PluginConfig config;
 
 
         [Init]
@@ -24,11 +26,15 @@ namespace Saberfetch
         /// [Init] methods that use a Constructor or called before regular methods like InitWithConfig.
         /// Only use [Init] with one Constructor.
         /// </summary>
-        public void Init(IPALogger logger)
+        public void Init(IPALogger logger, Config conf)
         {
+            // this
             Instance = this;
             Log = logger;
             Log.Info("Saberfetch initialized.");
+
+            //config shit
+            config = PluginConfig.Instance = conf.Generated<PluginConfig>();
         }
 
         #region BSIPA Config
@@ -47,7 +53,8 @@ namespace Saberfetch
         public void OnApplicationStart()
         {
             Log.Debug("OnApplicationStart");
-            new GameObject("[SaberfetchController]").AddComponent<SaberfetchController>();
+            var sf = new GameObject("[SaberfetchController]").AddComponent<SaberfetchController>();
+            sf.GetComponent<SaberfetchController>().conf = config;
         }
 
         [OnExit]

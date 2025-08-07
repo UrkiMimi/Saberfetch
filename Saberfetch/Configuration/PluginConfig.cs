@@ -1,5 +1,4 @@
-﻿/*
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using IPA.Config.Stores;
 
 [assembly: InternalsVisibleTo(GeneratedStore.AssemblyVisibilityTarget)]
@@ -8,7 +7,12 @@ namespace Saberfetch.Configuration
     internal class PluginConfig
     {
         public static PluginConfig Instance { get; set; }
-        public virtual int IntValue { get; set; } = 42; // Must be 'virtual' if you want BSIPA to detect a value change and save the config automatically.
+        public virtual bool enabled { get; set; } = true;
+        public virtual float updateFrequency { get; set; } = 0.5f;
+        public virtual bool showMemory { get; set; } = true;
+        public virtual bool showRendering { get; set; } = true;
+        public virtual bool showSystemInfo { get; set; } = true;
+        public virtual bool showOtherCounters { get; set; } = true;
 
         /// <summary>
         /// This is called whenever BSIPA reads the config from disk (including when file changes are detected).
@@ -35,4 +39,3 @@ namespace Saberfetch.Configuration
         }
     }
 }
-*/
