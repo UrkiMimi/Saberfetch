@@ -2,7 +2,7 @@
 A simple BSIPA plugin that displays system statistics and information for debugging mods or modcharts. This mod is fairly primitive and in early stages of development
 
 ## Dependenceies
-BSIPA ^4.3.0 (may lower)
+BSIPA ^4.2.0
 
 ## Plans/Todo
 - Make the Saberfetch window togglable
@@ -16,4 +16,5 @@ BSIPA ^4.3.0 (may lower)
 I used Visual Studio 2022 and [BeatSaberModdingTools](https://marketplace.visualstudio.com/items?itemName=Zingabopp.BeatSaberModTemplates) to create this mod. However Rider should work with compiling the mod.
 
 ## Example preview
-<img width="349" height="296" alt="image" src="https://github.com/user-attachments/assets/341656de-9910-4600-a9ee-9c3f3c2a17a6" />
+<img width="357" height="398" alt="image" src="https://github.com/user-attachments/assets/5cbea762-6278-4b13-996e-2983028b5a21" />
+
