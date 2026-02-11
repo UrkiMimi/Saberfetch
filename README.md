@@ -2,18 +2,21 @@
 A simple BSIPA plugin that displays system statistics and information for debugging mods or modcharts. This mod is fairly primitive and in early stages of development
 
 ## Dependenceies
-BSIPA ^4.3.0 (may lower)
+BSIPA ^4.2.0
 
 ## Plans/Todo
-- Make the Saberfetch window togglable
-- Add modular UI config (In userdata)
-- Display current prefabs in scene
-- Section for Beat Saber specific things (note count, current song, current environment, etc.)
-- Show current scene
-- Display more per rendering counters other than FPS
+- [x] Make the Saberfetch window togglable
+- [x] Add modular UI config (In userdata)
+- [x] Display current prefabs in scene (Done but expensive)
+- [ ] Section for Beat Saber specific things (note count, current song, current environment, etc.)
+- [x] Show current scene
+- [ ] Display more per rendering counters other than FPS
+- [ ] Rewrite UI in BSML
+- [ ] Add custom refresh times
 
 ## What if I want to compile this mod?
 I used Visual Studio 2022 and [BeatSaberModdingTools](https://marketplace.visualstudio.com/items?itemName=Zingabopp.BeatSaberModTemplates) to create this mod. However Rider should work with compiling the mod.
 
 ## Example preview
-<img width="349" height="296" alt="image" src="https://github.com/user-attachments/assets/341656de-9910-4600-a9ee-9c3f3c2a17a6" />
+<img width="357" height="398" alt="image" src="https://github.com/user-attachments/assets/5cbea762-6278-4b13-996e-2983028b5a21" />
+
