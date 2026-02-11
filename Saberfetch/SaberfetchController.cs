@@ -3,8 +3,10 @@ using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR;
 using Saberfetch.Configuration;
+using BeatSaberMarkupLanguage;
+using UnityEngine.UI;
+using System.Collections;
 
 namespace Saberfetch
 {
@@ -15,14 +17,14 @@ namespace Saberfetch
         private Process process;
 
         //for canvas and text
-        private GameObject canvasGO;
-
-        private GameObject tmpTextGO;
+        private Canvas canvas;
 
         private TextMeshProUGUI tmpText;
 
         // update frequency
         private float updateInterval = 0.5f;
+
+        private readonly int fontSize = 12;
 
         private float time;
 
@@ -85,6 +87,7 @@ namespace Saberfetch
             bsVersion = Application.version.ToString();
             unityVersion = Application.unityVersion.ToString();
             UpdateCounters(); // call update on first frame
+            CreateUI();
         }
 
         // called on update
@@ -127,7 +130,13 @@ namespace Saberfetch
             {
                 GUILayout.Label("Application Memory", titleLabel);
                 GUILayout.Label($"- UnityEngine: {usageMB.z:F1} MB", labelStyle);
+                // change text to red if mono is over allocated
+                if (usageMB.y >= usageMB.x)
+                {
+                    GUI.color = Color.red;
+                }
                 GUILayout.Label($"- Mono: {usageMB.y:F1} MB", labelStyle);
+                GUI.color = Color.white;
                 GUILayout.Label($"- Allocated: {usageMB.x:F1} MB", labelStyle);
             }
 
@@ -158,8 +167,11 @@ namespace Saberfetch
                 GUILayout.Label($"- Scene: {sceneName}", labelStyle);
                 GUILayout.Label($"- BS Version: {bsVersion}", labelStyle);
                 GUILayout.Label($"- Unity Version: {unityVersion}", labelStyle);
-                GUILayout.Label($"- Notes: {noteCount}", labelStyle);
-                GUILayout.Label($"- Obstacles: {obstacleCount}", labelStyle);
+                if (conf.countBeatmapObjects)
+                {
+                    GUILayout.Label($"- Notes: {noteCount}", labelStyle);
+                    GUILayout.Label($"- Obstacles: {obstacleCount}", labelStyle);
+                }
             }
 
             GUILayout.EndArea();
@@ -184,15 +196,43 @@ namespace Saberfetch
             // note count
             if (conf.showOtherCounters)
             {
-                noteCount = FindObjectsOfType<GameNoteController>().Length;
-                noteCount += FindObjectsOfType<BombNoteController>().Length;
-                noteCount += FindObjectsOfType<BurstSliderGameNoteController>().Length;
+                if (conf.countBeatmapObjects)
+                {
+                    noteCount = FindObjectsOfType<GameNoteController>().Length;
+                    noteCount += FindObjectsOfType<BombNoteController>().Length;
+                    noteCount += FindObjectsOfType<BurstSliderGameNoteController>().Length;
 
-                obstacleCount = FindObjectsOfType<ObstacleController>().Length;
+                    obstacleCount = FindObjectsOfType<ObstacleController>().Length;
+                }
 
                 //scene name
                 sceneName = SceneManager.GetActiveScene().name;
             }
+        }
+
+        private void CreateUI()
+        {
+            // canvas setup
+            canvas = this.gameObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            var scaler = this.gameObject.AddComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(Screen.width, Screen.height);
+            this.gameObject.AddComponent<RectTransform>();
+
+            tmpText = BeatSaberUI.CreateText(this.transform as RectTransform, "test", new Vector2(0.0f,0.0f));
+            tmpText.rectTransform.offsetMin = new Vector2(10f, 10f);
+            StartCoroutine(MenuStartDelay(tmpText));
+            tmpText.fontSize = fontSize;
+
+        }
+
+        // wait for font
+        IEnumerator MenuStartDelay(TextMeshProUGUI tmp)
+        {
+            yield return new WaitUntil(() => SceneManager.GetActiveScene().name == "MainMenu");
+            yield return new WaitUntil(() => BeatSaberUI.MainTextFont != null);
+            tmp.font = BeatSaberUI.MainTextFont;
         }
     }
 }

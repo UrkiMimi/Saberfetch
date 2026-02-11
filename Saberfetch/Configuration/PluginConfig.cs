@@ -14,6 +14,8 @@ namespace Saberfetch.Configuration
         public virtual bool showSystemInfo { get; set; } = true;
         public virtual bool showOtherCounters { get; set; } = true;
 
+        public virtual bool countBeatmapObjects { get; set; } = false;
+
         /// <summary>
         /// This is called whenever BSIPA reads the config from disk (including when file changes are detected).
         /// </summary>
